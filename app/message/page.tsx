@@ -5,8 +5,26 @@ import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { sendEmail } from "@/lib/emailSender";
 
 export default function ContactPage() {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const name = (document.getElementById("name") as HTMLInputElement).value;
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const message = (document.getElementById("message") as HTMLTextAreaElement)
+      .value;
+
+    const send = await sendEmail(name, email, message);
+    if (send.success) {
+      alert("Your message has been sent successfully!");
+      event.currentTarget.reset(); // Reset the form
+    } else {
+      alert(`Failed to send message: ${send.message}`);
+    }
+  }
+
   return (
     <main className="min-h-[80vh] flex items-center justify-center">
       <motion.section
@@ -48,6 +66,9 @@ export default function ContactPage() {
             <div className="bg-zinc-600 dark:bg-zinc-800/70 border-none transition inline-flex justify-center w-full items-center rounded-md shadow-sm">
               <User className="ml-2" />
               <Input
+                type="text"
+                name="name"
+                id="name"
                 placeholder="Your Name"
                 className="ring-0 border-none outline-none "
               />
@@ -56,6 +77,8 @@ export default function ContactPage() {
               <Mail className="ml-2" />
               <Input
                 type="email"
+                id="email"
+                name="email"
                 placeholder="Your E-Mail"
                 className="ring-0 border-none outline-none "
               />
@@ -63,13 +86,17 @@ export default function ContactPage() {
             <div className="bg-zinc-600 dark:bg-zinc-800/70 border-none transition inline-flex justify-center w-full items-center rounded-md shadow-sm">
               <Textarea
                 placeholder="Your Message"
+                id="message"
+                name="message"
                 rows={5}
                 className="ring-0 border-none outline-none "
               />
             </div>
           </div>
           <Button
-            type="submit"
+            onClick={() =>
+              handleSubmit(event as unknown as React.FormEvent<HTMLFormElement>)
+            }
             className="w-full flex items-center justify-center text-zinc-950 gap-2 bg-gradient-to-r from-zinc-400 to-zinc-500  font-semibold py-3 rounded-xl shadow-md hover:scale-[1.03] hover:shadow-lg transition-all"
           >
             <Send className="w-5 h-5" />
