@@ -1,5 +1,6 @@
-import { NextApiRequest } from "next";
-export async function GET(req: NextApiRequest) {
-  return Response.redirect(`${req.url}pages/hub`)
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+  return NextResponse.redirect(`${req.url}pages/hub`)
 }
 
