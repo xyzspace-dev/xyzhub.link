@@ -2,10 +2,10 @@
 
 import { Mail, Phone, MapPin, User, Send } from "lucide-react";
 import { motion } from "framer-motion";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { sendEmail } from "@/lib/emailSender";
+import { Input } from "../../components/ui/input";
+import { Textarea } from "../../components/ui/textarea";
+import { Button } from "../../components/ui/button";
+import { sendEmail } from "../../lib/emailSender";
 
 export default function ContactPage() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
