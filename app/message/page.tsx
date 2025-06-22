@@ -19,7 +19,7 @@ export default function ContactPage() {
     const send = await sendEmail(name, email, message);
     if (send.success) {
       alert("Your message has been sent successfully!");
-      event.currentTarget.reset(); // Reset the form
+      window.location.reload(); // Reload the page to reset the form
     } else {
       alert(`Failed to send message: ${send.message}`);
     }
