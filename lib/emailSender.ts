@@ -15,9 +15,6 @@ const data = {
 
 export async function sendEmail(name: string, from: string, text: string) {
 
-    console.log(data);
-
-
     const transporter = nodemailer.createTransport({
         host: data.host,
         port: data.port,
