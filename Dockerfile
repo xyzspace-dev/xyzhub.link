@@ -6,6 +6,7 @@ WORKDIR /app
 # Install app dependencies
 COPY package*.json .
 RUN npm install --omit=dev
+RUN npm run build
 
 ENV EMAIL_USER=contact@xyzhub.link
 ENV EMAIL_PASSWORD="your_password_here"
@@ -18,4 +19,4 @@ ENV PAGE_HOST=xyzhub.link
 # Bundle app source
 COPY . .
 EXPOSE 3000
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "start" ]
