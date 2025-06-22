@@ -3,11 +3,8 @@ FROM node:20
 # Create app directory
 WORKDIR /app
 
-# Install app dependencies
-COPY package*.json .
-RUN npm install --omit=dev
-
-COPY . .
+COPY . /app
+RUN npm install
 RUN npm run build
 
 ENV EMAIL_USER=contact@xyzhub.link
