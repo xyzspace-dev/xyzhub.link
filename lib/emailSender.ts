@@ -28,8 +28,12 @@ export async function sendEmail(name: string, from: string, text: string) {
         },
         tls: {
             rejectUnauthorized: process.env.IGNORE_TLS === "true" ? false : true,
-        }
+        },
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 10000,
     });
+
 
     try {
         await transporter.sendMail({
