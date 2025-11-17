@@ -17,7 +17,6 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="min-h-screen flex flex-col bg-zinc-900 text-zinc-100 transition-colors duration-300">
-        {/* Header */}
         <header className="border-b border-zinc-700">
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link
@@ -32,14 +31,14 @@ export default function RootLayout({
               <Link
                 href="/"
                 className="hover:text-zinc-400 transition-colors"
-                aria-label="Startseite"
+                aria-label="homepage"
               >
                 Home
               </Link>
               <Link
                 href="/message"
                 className="hover:text-zinc-400 transition-colors"
-                aria-label="Kontakt"
+                aria-label="contact"
               >
                 Contact
               </Link>
@@ -47,14 +46,12 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/* Main Content */}
         <main className="flex-grow max-w-6xl mx-auto px-6 py-8">
           {children}
         </main>
 
-        {/* Footer */}
         <footer className="border-t border-zinc-700 py-6 text-center text-sm text-zinc-500 select-none">
-          © {new Date().getFullYear()} xyzhub.link – Alle Rechte vorbehalten.
+          © {new Date().getFullYear()} xyzhub.link – All rights reserved.
         </footer>
       </body>
     </html>

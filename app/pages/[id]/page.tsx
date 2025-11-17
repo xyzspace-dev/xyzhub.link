@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Head from "next/head";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { Error } from "@/components/Error";
+import { PAGES_DIRECTORY } from "@/lib/env";
 
 export default function MdxPage() {
   const [mdContent, setMdContent] = useState<string>("");
@@ -14,12 +16,16 @@ export default function MdxPage() {
 
   useEffect(() => {
     async function fetchData() {
+      const pageName = pathname.split("/").pop();
+
+      console.log(pageName);
+
       const response = await fetch(
-        `/markdown/${pathname.split("/").pop()}.mdx`
+        `${(await PAGES_DIRECTORY()).replaceAll("{page}", `${pageName}`)}`
       );
-      if (!response.ok) return console.error("Fehler beim Laden");
 
       const data = await response.text();
+
       const metadataRaw = data.split("---")[1];
       const markdown = data.split("---")[2] || "";
 
@@ -39,11 +45,15 @@ export default function MdxPage() {
     }
 
     fetchData();
-    // eslint-disable-next-line
   });
+
+  if (mdContent.length <= 0) {
+    return <Error />;
+  }
 
   return (
     <>
+      {" "}
       <Head>
         <title>{metadata.title || "xyzhub.link"}</title>
       </Head>
@@ -135,7 +145,6 @@ export default function MdxPage() {
                 },
                 code: {
                   component: ({ className, children }) => {
-                    // Für Inline-Code vs. Codeblock
                     const isBlock = className && className.startsWith("lang-");
                     const language = className
                       ? className.replace("lang-", "")

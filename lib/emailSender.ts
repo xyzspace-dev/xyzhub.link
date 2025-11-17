@@ -12,7 +12,6 @@ const data = {
     },
 };
 
-
 export async function sendEmail(name: string, from: string, text: string) {
 
     const transporter = nodemailer.createTransport({
@@ -41,9 +40,13 @@ export async function sendEmail(name: string, from: string, text: string) {
         });
 
         console.log("Email sent successfully");
-        return { success: true, message: "Email sent successfully" };
+        return {success: true, message: "Email sent successfully"};
     } catch (error) {
         console.log("Failed to send email:", error);
-        return { success: false, message: "Failed to send email", error: error instanceof Error ? error.message : "Unknown error" };
+        return {
+            success: false,
+            message: "Failed to send email",
+            error: error instanceof Error ? error.message : "Unknown error"
+        };
     }
 }
