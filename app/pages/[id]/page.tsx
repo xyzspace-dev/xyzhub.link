@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Head from "next/head";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { Error } from "@/components/Error";
 import { PAGES_DIRECTORY } from "@/lib/env";
 
 export default function MdxPage() {
@@ -46,10 +45,6 @@ export default function MdxPage() {
 
     fetchData();
   });
-
-  if (mdContent.length <= 0) {
-    return <Error />;
-  }
 
   return (
     <>

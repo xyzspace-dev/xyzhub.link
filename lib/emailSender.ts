@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 const data = {
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT as unknown as number,
-    secure: process.env.EMAIL_SECURE === "true",
+    secure: process.env.EMAIL_SECURE == "true",
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
