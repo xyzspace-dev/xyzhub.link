@@ -6,51 +6,42 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Head from "next/head";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { PAGES_DIRECTORY } from "@/lib/env";
+import { Loading } from "@/components/Loading";
+
+type PageCallback = {
+  markdown: string;
+  metaData: Record<string, any>;
+};
 
 export default function MdxPage() {
   const [mdContent, setMdContent] = useState<string>("");
   const [metadata, setMetadata] = useState<Record<string, any>>({});
+  const [loading, setLoading] = useState<boolean>(true);
   const pathname = usePathname();
 
   useEffect(() => {
     async function fetchData() {
-      const pageName = pathname.split("/").pop();
+      const pageData = await fetch(`/api/pages/${pathname.split("/").pop()}`, {
+        method: "GET",
+      });
 
-      console.log(pageName);
+      const data = (await pageData.json()) as PageCallback;
 
-      const response = await fetch(
-        `${(await PAGES_DIRECTORY()).replaceAll("{page}", `${pageName}`)}`
-      );
-
-      const data = await response.text();
-
-      const metadataRaw = data.split("---")[1];
-      const markdown = data.split("---")[2] || "";
-
-      if (metadataRaw) {
-        const meta: Record<string, any> = {};
-        metadataRaw
-          .trim()
-          .split("\n")
-          .forEach((line) => {
-            const [key, value] = line.split(":").map((s) => s.trim());
-            if (key && value) meta[key] = value.replace(/"/g, "");
-          });
-        setMetadata(meta);
-      }
-
-      setMdContent(markdown);
+      setMetadata(data.metaData);
+      setMdContent(data.markdown);
+      setLoading(false);
     }
 
     fetchData();
   });
 
+  if (loading) return <Loading />;
+
   return (
     <>
       {" "}
       <Head>
-        <title>{metadata.title || "xyzhub.link"}</title>
+        <title>{metadata?.title ?? "xyzhub.link"}</title>
       </Head>
       <main className="flex items-center justify-center">
         <motion.section
@@ -60,7 +51,7 @@ export default function MdxPage() {
           className="w-full max-w-3xl bg-zinc/90 dark:bg-zinc-900/80 rounded-2xl backdrop-blur-lg"
         >
           {/* Headline */}
-          {metadata.title && (
+          {metadata?.title && (
             <h1 className="text-4xl font-extrabold mb-6 text-center bg-gradient-to-r from-zinc-400 to-zinc-500 bg-clip-text text-transparent drop-shadow">
               {metadata.title}
             </h1>
@@ -68,12 +59,12 @@ export default function MdxPage() {
 
           {/* Meta Info */}
           <div className="flex justify-center gap-6 mb-8 text-sm text-zinc-500 dark:text-zinc-400">
-            {metadata.date && (
+            {metadata?.date && (
               <span>
                 <span className="font-semibold">📅</span> {metadata.date}
               </span>
             )}
-            {metadata.author && (
+            {metadata?.author && (
               <span>
                 <span className="font-semibold">✍️</span> {metadata.author}
               </span>

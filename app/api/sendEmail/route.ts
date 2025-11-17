@@ -1,5 +1,6 @@
 "use server";
 
+import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 const data = {
@@ -12,7 +13,18 @@ const data = {
   },
 };
 
-export async function sendEmail(name: string, from: string, text: string) {
+type RequestData = {
+  name: string;
+  from: string;
+  text: string;
+};
+
+export async function POST(req: NextRequest) {
+  const body = (await req.json()) as RequestData;
+  const from = body.from;
+  const text = body.text;
+  const name = body.name;
+
   const transporter = nodemailer.createTransport({
     host: data.host,
     port: data.port,
@@ -37,14 +49,16 @@ export async function sendEmail(name: string, from: string, text: string) {
       text: `Name: ${name}\nEmail: ${from}\nMessage:\n${text}`,
     });
 
-    console.log("Email sent successfully");
-    return { success: true, message: "Email sent successfully" };
+    console.log("test");
+
+    return NextResponse.json({
+      success: true,
+      message: "Email sent successfully",
+    });
   } catch (error) {
-    console.log("Failed to send email:", error);
-    return {
+    return NextResponse.json({
       success: false,
-      message: "Failed to send email",
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 }
