@@ -6,13 +6,5 @@ COPY . /app
 RUN bun install
 RUN bun run build
 
-ENV EMAIL_USER=contact@xyzhub.link
-ENV EMAIL_PASSWORD=;,61,nsISte
-ENV EMAIL_HOST=mail.service.xyzspace.dev
-ENV IGNORE_TLS=false
-ENV EMAIL_SECURE=true
-ENV REDIRECT_JSON_FILE=https://raw.githubusercontent.com/xyzDataSpace/xyzHubData/refs/heads/main/redirects.json
-ENV PAGES_DIRECTORY=https://raw.githubusercontent.com/xyzDataSpace/xyzHubData/refs/heads/main/pages/{page}.mdx
-
 EXPOSE 3000
 CMD [ "bun", "run", "start" ]
