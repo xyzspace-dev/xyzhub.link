@@ -13,7 +13,7 @@ export default function RootLayout({
     <html lang="de">
       <head>
         <title>xyzhub</title>
-        <meta name="description" content="xyzhub – Modernes Webportal" />
+        <meta name="description" content="xyzhub" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="min-h-screen flex flex-col bg-zinc-900 text-zinc-100 transition-colors duration-300">
