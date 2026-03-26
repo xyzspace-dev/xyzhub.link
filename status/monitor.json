@@ -4,5 +4,17 @@
     "group": "disbot",
     "name": "DisBot",
     "type": "group"
+  },
+  {
+    "id": "disbotweb",
+    "group": "disbot",
+    "name": "disbot.app",
+    "type": "http"
+  },
+  {
+    "id": "crystopia",
+    "group": "crystopia",
+    "name": "Crystopia",
+    "type": "group"
   }
 ]
