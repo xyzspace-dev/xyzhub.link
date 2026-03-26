@@ -52,4 +52,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/xyzspace-dev/xyzhub.link:${{ steps.package-version.outputs.current-version}}
+            ghcr.io/xyzspace-dev/Jespersen Hub.link:${{ steps.package-version.outputs.current-version}}

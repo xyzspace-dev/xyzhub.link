@@ -1,38 +1,43 @@
-"use client";
+"use client"
 
-import Markdown from "markdown-to-jsx";
-import {usePathname} from "next/navigation";
 import {useEffect, useState} from "react";
-import {motion} from "framer-motion";
-import Head from "next/head";
-import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
-import {Loading} from "@/components/Loading";
+import {usePathname} from "next/navigation";
 import {PageCallback} from "@/types/pages";
+import Head from "next/head";
+import {motion} from "framer-motion";
+import Markdown from "markdown-to-jsx";
+import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
+import {log} from "next/dist/server/typescript/utils";
 
+export default function IncidencePage() {
 
-export default function MdxPage() {
     const [mdContent, setMdContent] = useState<string>("");
     const [metadata, setMetadata] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState<boolean>(true);
     const pathname = usePathname();
 
     useEffect(() => {
-        async function fetchData() {
-            const pageData = await fetch(`/api/pages/${pathname.split("/").pop()}`, {
-                method: "GET",
-            });
-
-            const data = (await pageData.json()) as PageCallback;
-
-            setMetadata(data.metaData);
-            setMdContent(data.markdown);
-            setLoading(false);
+        async function fetch() {
+            await fetchIncidence()
         }
 
-        fetchData();
-    });
+        fetch()
+    }, []);
 
-    if (loading) return <Loading/>;
+    const fetchIncidence = async () => {
+        const pageData = await fetch(`/api/status/incidence/${pathname.split("/").pop()}`, {
+            method: "GET",
+        });
+
+
+        const data = (await pageData.json()) as PageCallback;
+
+        console.log(data)
+
+        setMetadata(data.metaData);
+        setMdContent(data.markdown);
+        setLoading(false);
+    }
 
     return (
         <>
