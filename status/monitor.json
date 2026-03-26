@@ -3,9 +3,6 @@
     "id": "disbot",
     "group": "disbot",
     "name": "DisBot",
-    "type": "group",
-    "external_url": null,
-    "checkData": null,
-    "checkTime": null,
+    "type": "group"
   }
 ]
