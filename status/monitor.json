@@ -11,8 +11,8 @@
     "isParent": false,
     "group": "disbot",
     "name": "disbot.app",
-    "type": "http",
-    "checkData": "https://disbot.app"
+    "type": "tcp",
+    "checkData": "disbot.app"
   },
   {
     "id": "crystopia",
