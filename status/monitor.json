@@ -12,6 +12,7 @@
     "group": "disbot",
     "name": "disbot.app",
     "type": "tcp",
+    "external_url": "https://disbot.app",
     "checkData": "disbot.app"
   },
   {
