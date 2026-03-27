@@ -37,8 +37,8 @@ export function StatusMonitor(
                     </Badge>
                 </span>
                 </div>
-                <span className={"p-2 flex justify-center items-center"}>
-                        <Badge className={"flex justify-center items-center -right-2 md:right-2/5 absolute bg-white"}
+                <span className={"p-2 flex justify-center items-center relative left-30"}>
+                        <Badge className={"flex justify-center items-center bg-white"}
                                variant={"link"}
                                asChild>
                             <a className={"hover:text-blue-400"} href={monitor.external_url ?? "#"}>

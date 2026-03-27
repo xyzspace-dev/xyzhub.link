@@ -32,10 +32,7 @@ export default function StatusPage() {
 
     return (
         <main className={"min-w-min"}>
-            <motion.section
-                initial={{opacity: 0, y: 30}}
-                animate={{opacity: 1, y: 0}}
-                transition={{duration: 0.7, ease: "easeOut"}}
+            <div
                 className="dark:bg-zinc-900/80 rounded-2xl"
             >
                 <motion.h1
@@ -59,19 +56,18 @@ export default function StatusPage() {
                         })
                     }
                 </div>
-                <motion.div
-                    initial={{opacity: 0, y: 30}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={{duration: 0.7, ease: "easeOut"}}
+                <div
                     onClick={() => window.open("/status/events")}
                     className={"border-2 p-2 rounded-2xl mt-5 inline-flex w-full cursor-pointer hover:text-zinc-400"}
                 >
                     <span>
                         Browse Events
                     </span>
-                    <ArrowRight className={"-right-3.5 md:right-2/5 absolute"}/>
-                </motion.div>
-            </motion.section>
+                    <span className={"left-62 relative"}>
+                        <ArrowRight/>
+                    </span>
+                </div>
+            </div>
         </main>
     );
 }
